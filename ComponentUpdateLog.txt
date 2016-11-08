@@ -1,0 +1,6 @@
+Last Modified Date & Time: 11/07/2016 11:14:45
+
+PSoC_4_BLE_CapSense_Proximity: TopDesign
+	BLE [v1.10] to [v1.20]
+
+

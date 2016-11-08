@@ -1,0 +1,5 @@
+C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|ee024c0a-a463-499e-be98-0735b69a6d99
+C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|4fdeb9a2-844d-4486-ba58-83776bb7678c
+C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|ba14c3a0-1682-4eea-be26-7a0d73c094e0
+C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|4fcd76d6-becd-4c75-bfd3-d4b1eae187a2
+C:\Users\Manisha Goyal\Desktop\PSOC_CapsenseProximity\PSOC_CapenseProximity.cydsn\PSOC_CapenseProximity.cyprj|f79417b5-c1aa-4386-b1ed-c2b68a50b102

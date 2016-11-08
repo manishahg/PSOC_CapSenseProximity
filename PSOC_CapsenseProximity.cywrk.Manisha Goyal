@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CyXmlSerializer>
+<!--This file is machine generated and read. It is not intended to be edited by hand.-->
+<!--Due to this, there is no schema for this file.-->
+<CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWrkspcCustomData" version="4">
+<CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997 type_name="CyDesigner.Common.Base.CyCustomData" version="2">
+<userData>
+<dataGuid v="1b906a0f-a7b6-4e4d-a428-82f98b53cb35">
+<CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35 type_name="CyDesigner.Common.ProjMgmt.GUI.CyExplorerWindow+CyExplorerWindowState" version="3" SelectedTab="Source">
+<TreeKeys>
+<v>Source</v>
+<v>Components</v>
+<v>Output</v>
+</TreeKeys>
+<TreeStates>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="PSOC_CapsenseProximity">
+<ExpandedNodeIds>
+<v>PSOC_CapsenseProximity</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\TopDesign</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\PSOC_CapenseProximity.cydwr</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Header Files</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Header Files\BLEApplications.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Header Files\main.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Source Files</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Source Files\BLEApplications.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Source Files\main.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE_custom.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE_custom.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE_eventHandler.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE_eventHandler.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE_gatt.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE_gatt.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE_HAL_INT.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE_HAL_PVT.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE_HAL_PVT.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE_Stack.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE_STACK_PVT.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE_StackGap.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE_StackGatt.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE_StackGattClient.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE_StackGattDb.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE_StackGattServer.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE_StackHostMain.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE\BLE_StackL2cap.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE_bless_isr</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE_bless_isr\BLE_bless_isr.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\BLE_bless_isr\BLE_bless_isr.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense\CapSense.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense\CapSense.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense\CapSense_CSHL.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense\CapSense_CSHL.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense\CapSense_INT.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense\CapSense_IP.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense\CapSense_PM.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense\CapSense_PVT.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense\CapSense_SMS.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense\CapSense_SMS.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense\CapSense_TunerHelper.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense\CapSense_TunerHelper.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense_SampleClk</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense_SampleClk\CapSense_SampleClk.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense_SampleClk\CapSense_SampleClk.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense_SenseClk</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense_SenseClk\CapSense_SenseClk.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense_SenseClk\CapSense_SenseClk.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense_Sns</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense_Sns\CapSense_Sns.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense_Sns\CapSense_Sns.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\CapSense_Sns\CapSense_Sns_aliases.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\cm0gcc.ld</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\Cm0Iar.icf</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\Cm0RealView.scat</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\Cm0Start.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\core_cm0.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\core_cm0_psoc4.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\core_cmFunc.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\core_cmInstr.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\CyBootAsmGnu.s</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\CyBootAsmIar.s</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\CyBootAsmRv.s</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\CyFlash.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\CyFlash.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\CyLib.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\CyLib.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\cypins.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\cyPm.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\cyPm.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\cytypes.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cy_boot\cyutils.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\Status_LED</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\Status_LED\Status_LED.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\Status_LED\Status_LED.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\Status_LED\Status_LED_aliases.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cydevice_trm.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cydevicegnu_trm.inc</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cydeviceiar_trm.inc</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cydevicerv_trm.inc</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cydisabledsheets.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cyfitter.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cyfitter_cfg.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cyfitter_cfg.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cyfittergnu.inc</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cyfitteriar.inc</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cyfitterrv.inc</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\cymetadata.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4\project.h</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>PSOC_CapsenseProximity</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\TopDesign</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\PSOC_CapenseProximity.cydwr</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Header Files</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Header Files\BLEApplications.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Header Files\main.h</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Source Files</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Source Files\BLEApplications.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Source Files\main.c</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\Generated_Source\PSoC4</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>PSOC_CapsenseProximity</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\TopDesign</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\TopDesign\TopDesign.cysch</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>PSOC_CapsenseProximity</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\TopDesign</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\TopDesign\TopDesign.cysch</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>PSOC_CapsenseProximity</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\BLE.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\BLE_bless_isr.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\BLE_custom.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\BLE_eventHandler.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\BLE_gatt.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\BLE_HAL_INT.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\BLE_HAL_PVT.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\BLEApplications.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\CapSense.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\CapSense_CSHL.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\CapSense_INT.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\CapSense_PM.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\CapSense_SampleClk.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\CapSense_SenseClk.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\CapSense_SMS.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\CapSense_Sns.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\CapSense_TunerHelper.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\Cm0Start.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\CyBootAsmGnu.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\CyFlash.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\CyLib.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\cymetadata.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\cyPm.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\cyutils.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\main.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\Listing Files\Status_LED.lst</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\PSOC_CapenseProximity.elf</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\PSOC_CapenseProximity.hex</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CortexM0\ARM_GCC_484\Debug\PSOC_CapenseProximity.map</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\PSOC_CapenseProximity.rpt</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\PSOC_CapenseProximity_timing.html</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>PSOC_CapsenseProximity</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStates>
+<TreeKeysV2>
+<v>Datasheet</v>
+</TreeKeysV2>
+<TreeStatesV2>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>PSOC_CapsenseProximity</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\PSoC 4 Architecture TRM</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\PSoC 4200 BLE Family Datasheet</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\System Reference Guide v4_20</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\BLE_v1_20</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CapSense_CSD_P4_v2_10</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\cy_pins_v2_10</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>PSOC_CapsenseProximity</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\PSoC 4 Architecture TRM</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\PSoC 4200 BLE Family Datasheet</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\System Reference Guide v4_20</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\BLE_v1_20</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\CapSense_CSD_P4_v2_10</v>
+<v>PSOC_CapsenseProximity\PSOC_CapenseProximity\cy_pins_v2_10</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStatesV2>
+</CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
+</dataGuid>
+<dataGuid v="5f2be1a5-0687-4501-bb8c-cf21cb8211bf">
+<CyGuid_5f2be1a5-0687-4501-bb8c-cf21cb8211bf type_name="CyDesigner.Common.ProjMgmt.GUI.CyBookmarkData" version="1">
+<indicators />
+</CyGuid_5f2be1a5-0687-4501-bb8c-cf21cb8211bf>
+</dataGuid>
+</userData>
+</CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
+<Unloaded />
+<OpenDocs>
+<name v=".\PSOC_CapSense_Proximity.cydsn\TopDesign\TopDesign.cysch" />
+<name v=".\PSOC_CapSense_Proximity.cydsn\Generated_Source\PSoC4\BLE.c" />
+<name v=".\PSOC_CapSense_Proximity.cydsn\main.c" />
+<name v=".\PSOC_CapSense_Proximity.cydsn\BLEApplications.c" />
+<name v=".\PSOC_CapSense_Proximity.cydsn\main.h" />
+</OpenDocs>
+<config v="" />
+<AutoUpdate v="true" />
+</CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
+</CyXmlSerializer>

@@ -1,0 +1,27 @@
+(DELAYFILE
+ (SDFVERSION "IEEE 1497 4.0")
+ (DATE "2016-11-08T16:53:00Z")
+ (DESIGN "PSOC_CapenseProximity")
+ (VENDOR "Cypress Semiconductor")
+ (PROGRAM "PSoC Creator")
+ (VERSION " 3.1 SP3")
+ (DIVIDER .)
+ (TIMESCALE 1 ns)
+ (CELL
+  (CELLTYPE "PSOC_CapenseProximity")
+  (INSTANCE *)
+  (DELAY
+   (ABSOLUTE
+    (INTERCONNECT ClockBlock.hfclk \\BLE\:bless_isr\\.clock (0.000:0.000:0.000))
+    (INTERCONNECT ClockBlock.hfclk \\CapSense\:ISR\\.clock (0.000:0.000:0.000))
+    (INTERCONNECT \\BLE\:cy_m0s8_ble\\.interrupt \\BLE\:bless_isr\\.interrupt (1.000:1.000:1.000))
+    (INTERCONNECT \\CapSense\:CSD_FFB\\.irq \\CapSense\:ISR\\.interrupt (0.000:0.000:0.000))
+    (INTERCONNECT ClockBlock.ff_div_5 \\CapSense\:CSD_FFB\\.clk2 (0.000:0.000:0.000))
+    (INTERCONNECT ClockBlock.ff_div_4 \\CapSense\:CSD_FFB\\.clk1 (0.000:0.000:0.000))
+    (INTERCONNECT __ONE__.q \\CapSense\:IDAC1\:cy_psoc4_idac\\.en (6.152:6.152:6.152))
+    (INTERCONNECT __ONE__.q \\CapSense\:IDAC2\:cy_psoc4_idac\\.en (6.141:6.141:6.141))
+    (INTERCONNECT Status_LED\(0\)_PAD Status_LED\(0\).pad_in (0.000:0.000:0.000))
+   )
+  )
+ )
+)

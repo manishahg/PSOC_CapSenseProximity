@@ -1,0 +1,1509 @@
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	initializeCapSenseBaseline
+  18              		.data
+  19              		.type	initializeCapSenseBaseline, %object
+  20              		.size	initializeCapSenseBaseline, 1
+  21              	initializeCapSenseBaseline:
+  22 0000 01       		.byte	1
+  23              		.section	.text.main,"ax",%progbits
+  24              		.align	2
+  25              		.global	main
+  26              		.code	16
+  27              		.thumb_func
+  28              		.type	main, %function
+  29              	main:
+  30              	.LFB35:
+  31              		.file 1 ".\\main.c"
+   1:.\main.c      **** /*******************************************************************************
+   2:.\main.c      **** * File Name: main.c
+   3:.\main.c      **** *
+   4:.\main.c      **** * Version: 1.0
+   5:.\main.c      **** *
+   6:.\main.c      **** * Description:
+   7:.\main.c      **** *  This is the source code for the PSoC 4 Capsense Proximity - Setting up a Connection.
+   8:.\main.c      **** *
+   9:.\main.c      **** * Hardware Dependency:
+  10:.\main.c      **** *  CY8CKIT-042 BLE Pioneer Kit
+  11:.\main.c      **** *
+  12:.\main.c      **** ********************************************************************************
+  13:.\main.c      **** * Copyright 2014, Cypress Semiconductor Corporation.  All rights reserved.
+  14:.\main.c      **** * You may use this file only in accordance with the license, terms, conditions,
+  15:.\main.c      **** * disclaimers, and limitations in the end user license agreement accompanying
+  16:.\main.c      **** * the software package with which this file was provided.
+  17:.\main.c      **** *******************************************************************************/
+  18:.\main.c      **** 
+  19:.\main.c      **** #include <main.h>
+  20:.\main.c      **** 
+  21:.\main.c      **** /*'deviceConnected' flag is used by application to know whether a Central device  
+  22:.\main.c      **** * has been connected. This is updated in BLE event callback */
+  23:.\main.c      **** extern uint8 deviceConnected;
+  24:.\main.c      **** 
+  25:.\main.c      **** /*'startNotification' flag is set when the central device writes to CCC (Client  
+  26:.\main.c      **** * Characteristic Configuration) of the CapSense proximity characteristic to 
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 2
+
+
+  27:.\main.c      **** * enable notifications */
+  28:.\main.c      **** extern uint8 startNotification;	
+  29:.\main.c      **** 
+  30:.\main.c      **** /* 'restartAdvertisement' flag is used to restart advertisement */
+  31:.\main.c      **** extern uint8 restartAdvertisement;
+  32:.\main.c      **** 
+  33:.\main.c      **** /* 'initializeCapSenseBaseline' flag is used to call the function once that initializes 
+  34:.\main.c      **** * all CapSense baseline. The baseline is initialized when the first advertisement 
+  35:.\main.c      **** * is started. This is done so that any external disturbance while powering the kit does 
+  36:.\main.c      **** * not infliuence the baseline value, that may cause wrong readings. */
+  37:.\main.c      **** uint8 initializeCapSenseBaseline = TRUE;
+  38:.\main.c      **** 
+  39:.\main.c      **** /*******************************************************************************
+  40:.\main.c      **** * Function Name: main
+  41:.\main.c      **** ********************************************************************************
+  42:.\main.c      **** * Summary:
+  43:.\main.c      **** *        System entrance point. This calls the BLE routine functions as well as
+  44:.\main.c      **** * function for handling CapSense Proximity changes
+  45:.\main.c      **** *
+  46:.\main.c      **** * Parameters:
+  47:.\main.c      **** *  void
+  48:.\main.c      **** *
+  49:.\main.c      **** * Return:
+  50:.\main.c      **** *  int
+  51:.\main.c      **** *
+  52:.\main.c      **** 
+  53:.\main.c      **** *******************************************************************************/
+  54:.\main.c      **** int main()
+  55:.\main.c      **** {
+  32              		.loc 1 55 0
+  33              		.cfi_startproc
+  34 0000 80B5     		push	{r7, lr}
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 7, -8
+  37              		.cfi_offset 14, -4
+  38 0002 00AF     		add	r7, sp, #0
+  39              		.cfi_def_cfa_register 7
+  56:.\main.c      ****     /* This function will initialize the system resources such as BLE and CapSense */
+  57:.\main.c      **** 	InitializeSystem();
+  40              		.loc 1 57 0
+  41 0004 FFF7FEFF 		bl	InitializeSystem
+  42              	.L5:
+  58:.\main.c      **** 	
+  59:.\main.c      ****     for(;;)
+  60:.\main.c      ****     {
+  61:.\main.c      **** 		/*Process Event callback to handle BLE events. The events generated and 
+  62:.\main.c      **** 		* used for this application are inside the 'CustomEventHandler' routine*/
+  63:.\main.c      **** 		CyBle_ProcessEvents();
+  43              		.loc 1 63 0
+  44 0008 FFF7FEFF 		bl	CyBle_ProcessEvents
+  64:.\main.c      **** 		
+  65:.\main.c      **** 		/* Function to handle LED status depending on BLE state */
+  66:.\main.c      **** 		HandleStatusLED();
+  45              		.loc 1 66 0
+  46 000c FFF7FEFF 		bl	HandleStatusLED
+  67:.\main.c      **** 		
+  68:.\main.c      **** 		/* Handle proximity data and CCCD value update only if BLE device is connected */
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 3
+
+
+  69:.\main.c      **** 		if(TRUE == deviceConnected) 
+  47              		.loc 1 69 0
+  48 0010 114B     		ldr	r3, .L6
+  49 0012 1B78     		ldrb	r3, [r3]
+  50 0014 012B     		cmp	r3, #1
+  51 0016 12D1     		bne	.L2
+  70:.\main.c      **** 		{	
+  71:.\main.c      **** 			/* When the Client Characteristic Configuration descriptor (CCCD) is written
+  72:.\main.c      **** 			* by Central device for enabling/disabling notifications, then the same
+  73:.\main.c      **** 			* descriptor value has to be explicitly updated in application so that
+  74:.\main.c      **** 			* it reflects the correct value when the descriptor is read */
+  75:.\main.c      **** 			UpdateNotificationCCCD();
+  52              		.loc 1 75 0
+  53 0018 FFF7FEFF 		bl	UpdateNotificationCCCD
+  76:.\main.c      **** 			
+  77:.\main.c      **** 			/* If CapSense Initialize Baseline API has not been called yet, call the
+  78:.\main.c      **** 			* API and reset the flag. */
+  79:.\main.c      **** 			if(initializeCapSenseBaseline)
+  54              		.loc 1 79 0
+  55 001c 0F4B     		ldr	r3, .L6+4
+  56 001e 1B78     		ldrb	r3, [r3]
+  57 0020 002B     		cmp	r3, #0
+  58 0022 04D0     		beq	.L3
+  80:.\main.c      **** 			{
+  81:.\main.c      **** 				/* Reset 'initializeCapSenseBaseline' flag*/
+  82:.\main.c      **** 				initializeCapSenseBaseline = FALSE;
+  59              		.loc 1 82 0
+  60 0024 0D4B     		ldr	r3, .L6+4
+  61 0026 0022     		mov	r2, #0
+  62 0028 1A70     		strb	r2, [r3]
+  83:.\main.c      **** 				
+  84:.\main.c      **** 				/* Initialize all CapSense Baseline */
+  85:.\main.c      **** 				CapSense_InitializeAllBaselines();
+  63              		.loc 1 85 0
+  64 002a FFF7FEFF 		bl	CapSense_InitializeAllBaselines
+  65              	.L3:
+  86:.\main.c      **** 			}
+  87:.\main.c      **** 			
+  88:.\main.c      **** 			/* Send proximity data when notifications are enabled */
+  89:.\main.c      **** 			if(startNotification & CCCD_NTF_BIT_MASK)
+  66              		.loc 1 89 0
+  67 002e 0C4B     		ldr	r3, .L6+8
+  68 0030 1B78     		ldrb	r3, [r3]
+  69 0032 1A1C     		mov	r2, r3
+  70 0034 0123     		mov	r3, #1
+  71 0036 1340     		and	r3, r2
+  72 0038 01D0     		beq	.L2
+  90:.\main.c      **** 			{
+  91:.\main.c      **** 				/*Check for CapSense proximity change and report to BLE central device*/
+  92:.\main.c      **** 				HandleCapSenseProximity();
+  73              		.loc 1 92 0
+  74 003a FFF7FEFF 		bl	HandleCapSenseProximity
+  75              	.L2:
+  93:.\main.c      **** 			}
+  94:.\main.c      **** 		}
+  95:.\main.c      **** 
+  96:.\main.c      **** 		if(restartAdvertisement)
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 4
+
+
+  76              		.loc 1 96 0
+  77 003e 094B     		ldr	r3, .L6+12
+  78 0040 1B78     		ldrb	r3, [r3]
+  79 0042 002B     		cmp	r3, #0
+  80 0044 06D0     		beq	.L4
+  97:.\main.c      **** 		{
+  98:.\main.c      **** 			/* Reset 'restartAdvertisement' flag*/
+  99:.\main.c      **** 			restartAdvertisement = FALSE;
+  81              		.loc 1 99 0
+  82 0046 074B     		ldr	r3, .L6+12
+  83 0048 0022     		mov	r2, #0
+  84 004a 1A70     		strb	r2, [r3]
+ 100:.\main.c      **** 			
+ 101:.\main.c      **** 			/* Start Advertisement and enter Discoverable mode*/
+ 102:.\main.c      **** 			CyBle_GappStartAdvertisement(CYBLE_ADVERTISING_FAST);	
+  85              		.loc 1 102 0
+  86 004c 0020     		mov	r0, #0
+  87 004e FFF7FEFF 		bl	CyBle_GappStartAdvertisement
+ 103:.\main.c      **** 		}
+ 104:.\main.c      ****     }	/* This is end of for(;;) */
+  88              		.loc 1 104 0
+  89 0052 D9E7     		b	.L5
+  90              	.L4:
+  91 0054 D8E7     		b	.L5
+  92              	.L7:
+  93 0056 C046     		.align	2
+  94              	.L6:
+  95 0058 00000000 		.word	deviceConnected
+  96 005c 00000000 		.word	initializeCapSenseBaseline
+  97 0060 00000000 		.word	startNotification
+  98 0064 00000000 		.word	restartAdvertisement
+  99              		.cfi_endproc
+ 100              	.LFE35:
+ 101              		.size	main, .-main
+ 102              		.section	.text.InitializeSystem,"ax",%progbits
+ 103              		.align	2
+ 104              		.global	InitializeSystem
+ 105              		.code	16
+ 106              		.thumb_func
+ 107              		.type	InitializeSystem, %function
+ 108              	InitializeSystem:
+ 109              	.LFB36:
+ 105:.\main.c      **** }
+ 106:.\main.c      **** 
+ 107:.\main.c      **** /*******************************************************************************
+ 108:.\main.c      **** * Function Name: InitializeSystem
+ 109:.\main.c      **** ********************************************************************************
+ 110:.\main.c      **** * Summary:
+ 111:.\main.c      **** *        Starts the components and initializes CapSense baselines
+ 112:.\main.c      **** *
+ 113:.\main.c      **** * Parameters:
+ 114:.\main.c      **** *  void
+ 115:.\main.c      **** *
+ 116:.\main.c      **** * Return:
+ 117:.\main.c      **** *  void
+ 118:.\main.c      **** *
+ 119:.\main.c      **** 
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 5
+
+
+ 120:.\main.c      **** *******************************************************************************/
+ 121:.\main.c      **** void InitializeSystem(void)
+ 122:.\main.c      **** {
+ 110              		.loc 1 122 0
+ 111              		.cfi_startproc
+ 112 0000 80B5     		push	{r7, lr}
+ 113              		.cfi_def_cfa_offset 8
+ 114              		.cfi_offset 7, -8
+ 115              		.cfi_offset 14, -4
+ 116 0002 00AF     		add	r7, sp, #0
+ 117              		.cfi_def_cfa_register 7
+ 123:.\main.c      **** 	/* Enable global interrupt mask */
+ 124:.\main.c      **** 	CyGlobalIntEnable;
+ 118              		.loc 1 124 0
+ 119              	@ 124 ".\main.c" 1
+ 120 0004 62B6     		CPSIE   i
+ 121              	@ 0 "" 2
+ 125:.\main.c      **** 
+ 126:.\main.c      **** 	/* Start BLE component and register the CustomEventHandler function. This 
+ 127:.\main.c      **** 	* function exposes the events from BLE component for application use */
+ 128:.\main.c      **** 	CyBle_Start(CustomEventHandler);					
+ 122              		.loc 1 128 0
+ 123              		.code	16
+ 124 0006 074B     		ldr	r3, .L9
+ 125 0008 181C     		mov	r0, r3
+ 126 000a FFF7FEFF 		bl	CyBle_Start
+ 129:.\main.c      **** 	
+ 130:.\main.c      **** 	/* Set drive mode of the status LED pin to Strong*/
+ 131:.\main.c      **** 	Status_LED_SetDriveMode(Status_LED_DM_STRONG);	
+ 127              		.loc 1 131 0
+ 128 000e 0620     		mov	r0, #6
+ 129 0010 FFF7FEFF 		bl	Status_LED_SetDriveMode
+ 132:.\main.c      **** 	
+ 133:.\main.c      **** 	#ifdef CAPSENSE_ENABLED
+ 134:.\main.c      **** 	/* Enable the proximity widget explicitly and start CapSense component. 
+ 135:.\main.c      **** 	* Initialization of the baseline is done when the first connection 
+ 136:.\main.c      **** 	* happens  */
+ 137:.\main.c      **** 	CapSense_EnableWidget(CapSense_PROXIMITYSENSOR0__PROX);
+ 130              		.loc 1 137 0
+ 131 0014 0020     		mov	r0, #0
+ 132 0016 FFF7FEFF 		bl	CapSense_EnableWidget
+ 138:.\main.c      **** 	CapSense_Start();
+ 133              		.loc 1 138 0
+ 134 001a FFF7FEFF 		bl	CapSense_Start
+ 139:.\main.c      **** 	#endif
+ 140:.\main.c      **** 		
+ 141:.\main.c      **** }
+ 135              		.loc 1 141 0
+ 136 001e BD46     		mov	sp, r7
+ 137              		@ sp needed
+ 138 0020 80BD     		pop	{r7, pc}
+ 139              	.L10:
+ 140 0022 C046     		.align	2
+ 141              	.L9:
+ 142 0024 00000000 		.word	CustomEventHandler
+ 143              		.cfi_endproc
+ 144              	.LFE36:
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 6
+
+
+ 145              		.size	InitializeSystem, .-InitializeSystem
+ 146              		.section	.text.HandleCapSenseProximity,"ax",%progbits
+ 147              		.align	2
+ 148              		.global	HandleCapSenseProximity
+ 149              		.code	16
+ 150              		.thumb_func
+ 151              		.type	HandleCapSenseProximity, %function
+ 152              	HandleCapSenseProximity:
+ 153              	.LFB37:
+ 142:.\main.c      **** 
+ 143:.\main.c      **** /*******************************************************************************
+ 144:.\main.c      **** * Function Name: HandleCapSenseProximity
+ 145:.\main.c      **** ********************************************************************************
+ 146:.\main.c      **** * Summary:
+ 147:.\main.c      **** *       Read the proximity data from the sensor and update the BLE
+ 148:.\main.c      **** *		custom notification value.
+ 149:.\main.c      **** *
+ 150:.\main.c      **** * Parameters:
+ 151:.\main.c      **** *  void
+ 152:.\main.c      **** *
+ 153:.\main.c      **** * Return:
+ 154:.\main.c      **** *  void
+ 155:.\main.c      **** *
+ 156:.\main.c      **** *******************************************************************************/
+ 157:.\main.c      **** void HandleCapSenseProximity(void)
+ 158:.\main.c      **** {
+ 154              		.loc 1 158 0
+ 155              		.cfi_startproc
+ 156 0000 90B5     		push	{r4, r7, lr}
+ 157              		.cfi_def_cfa_offset 12
+ 158              		.cfi_offset 4, -12
+ 159              		.cfi_offset 7, -8
+ 160              		.cfi_offset 14, -4
+ 161 0002 83B0     		sub	sp, sp, #12
+ 162              		.cfi_def_cfa_offset 24
+ 163 0004 00AF     		add	r7, sp, #0
+ 164              		.cfi_def_cfa_register 7
+ 159:.\main.c      **** 	#ifdef CAPSENSE_ENABLED
+ 160:.\main.c      **** 	/* Static variable used as counter for reading the new proximity value */
+ 161:.\main.c      **** 	static uint16 proxCounter = TRUE;			
+ 162:.\main.c      **** 				
+ 163:.\main.c      **** 	/* 'proximityValue' stores the proximity value read from CapSense component */
+ 164:.\main.c      **** 	uint8 proximityValue;	
+ 165:.\main.c      **** 		
+ 166:.\main.c      **** 	/* Check if proxCounter has reached its counting value */
+ 167:.\main.c      **** 	if(FALSE == (--proxCounter))			
+ 165              		.loc 1 167 0
+ 166 0006 134B     		ldr	r3, .L14
+ 167 0008 1B88     		ldrh	r3, [r3]
+ 168 000a 013B     		sub	r3, r3, #1
+ 169 000c 9AB2     		uxth	r2, r3
+ 170 000e 114B     		ldr	r3, .L14
+ 171 0010 1A80     		strh	r2, [r3]
+ 172 0012 104B     		ldr	r3, .L14
+ 173 0014 1B88     		ldrh	r3, [r3]
+ 174 0016 002B     		cmp	r3, #0
+ 175 0018 18D1     		bne	.L11
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 7
+
+
+ 168:.\main.c      **** 	{
+ 169:.\main.c      **** 		/* Set 'proxCounter' to the PROX_COUNTER_VALUE. This counter prevents sending 
+ 170:.\main.c      **** 		   of large number of CapSense proximity data to BLE Central device */
+ 171:.\main.c      **** 		proxCounter = PROX_COUNTER_VALUE;
+ 176              		.loc 1 171 0
+ 177 001a 0E4B     		ldr	r3, .L14
+ 178 001c 0522     		mov	r2, #5
+ 179 001e 1A80     		strh	r2, [r3]
+ 172:.\main.c      **** 
+ 173:.\main.c      **** 		/* Scan the Proximity Widget */
+ 174:.\main.c      **** 		CapSense_ScanWidget(CapSense_PROXIMITYSENSOR0__PROX);				
+ 180              		.loc 1 174 0
+ 181 0020 0020     		mov	r0, #0
+ 182 0022 FFF7FEFF 		bl	CapSense_ScanWidget
+ 175:.\main.c      **** 		
+ 176:.\main.c      **** 		/* Wait for CapSense scanning to be complete. This could take about 5 ms */
+ 177:.\main.c      **** 		while(CapSense_IsBusy())
+ 183              		.loc 1 177 0
+ 184 0026 C046     		mov	r8, r8
+ 185              	.L13:
+ 186              		.loc 1 177 0 is_stmt 0 discriminator 1
+ 187 0028 FFF7FEFF 		bl	CapSense_IsBusy
+ 188 002c 031C     		mov	r3, r0
+ 189 002e 002B     		cmp	r3, #0
+ 190 0030 FAD1     		bne	.L13
+ 178:.\main.c      **** 		{
+ 179:.\main.c      **** 		}
+ 180:.\main.c      **** 		
+ 181:.\main.c      **** 		/* Update CapSense Baseline */
+ 182:.\main.c      **** 		CapSense_UpdateEnabledBaselines();			
+ 191              		.loc 1 182 0 is_stmt 1
+ 192 0032 FFF7FEFF 		bl	CapSense_UpdateEnabledBaselines
+ 183:.\main.c      **** 
+ 184:.\main.c      **** 		/* Get the Diffcount between proximity raw data and baseline */
+ 185:.\main.c      **** 		proximityValue = CapSense_GetDiffCountData(CapSense_PROXIMITYSENSOR0__PROX);
+ 193              		.loc 1 185 0
+ 194 0036 FC1D     		add	r4, r7, #7
+ 195 0038 0020     		mov	r0, #0
+ 196 003a FFF7FEFF 		bl	CapSense_GetDiffCountData
+ 197 003e 031C     		mov	r3, r0
+ 198 0040 2370     		strb	r3, [r4]
+ 186:.\main.c      **** 		
+ 187:.\main.c      **** 		/* Send the proximity data to BLE central device by notifications*/
+ 188:.\main.c      **** 		SendDataOverCapSenseNotification(proximityValue);
+ 199              		.loc 1 188 0
+ 200 0042 FB1D     		add	r3, r7, #7
+ 201 0044 1B78     		ldrb	r3, [r3]
+ 202 0046 181C     		mov	r0, r3
+ 203 0048 FFF7FEFF 		bl	SendDataOverCapSenseNotification
+ 204              	.L11:
+ 189:.\main.c      **** 			
+ 190:.\main.c      **** 	}
+ 191:.\main.c      **** 	#endif
+ 192:.\main.c      **** }
+ 205              		.loc 1 192 0
+ 206 004c BD46     		mov	sp, r7
+ 207 004e 03B0     		add	sp, sp, #12
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 8
+
+
+ 208              		@ sp needed
+ 209 0050 90BD     		pop	{r4, r7, pc}
+ 210              	.L15:
+ 211 0052 C046     		.align	2
+ 212              	.L14:
+ 213 0054 02000000 		.word	proxCounter.6602
+ 214              		.cfi_endproc
+ 215              	.LFE37:
+ 216              		.size	HandleCapSenseProximity, .-HandleCapSenseProximity
+ 217              		.data
+ 218 0001 00       		.align	1
+ 219              		.type	proxCounter.6602, %object
+ 220              		.size	proxCounter.6602, 2
+ 221              	proxCounter.6602:
+ 222 0002 0100     		.short	1
+ 223              		.text
+ 224              	.Letext0:
+ 225              		.file 2 ".\\Generated_Source\\PSoC4/cytypes.h"
+ 226              		.file 3 ".\\Generated_Source\\PSoC4/BLE_Stack.h"
+ 227              		.section	.debug_info,"",%progbits
+ 228              	.Ldebug_info0:
+ 229 0000 97020000 		.4byte	0x297
+ 230 0004 0400     		.2byte	0x4
+ 231 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 232 000a 04       		.byte	0x4
+ 233 000b 01       		.uleb128 0x1
+ 234 000c 1F080000 		.4byte	.LASF77
+ 235 0010 01       		.byte	0x1
+ 236 0011 38010000 		.4byte	.LASF78
+ 237 0015 0E050000 		.4byte	.LASF79
+ 238 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 239 001d 00000000 		.4byte	0
+ 240 0021 00000000 		.4byte	.Ldebug_line0
+ 241 0025 02       		.uleb128 0x2
+ 242 0026 01       		.byte	0x1
+ 243 0027 06       		.byte	0x6
+ 244 0028 03040000 		.4byte	.LASF0
+ 245 002c 02       		.uleb128 0x2
+ 246 002d 01       		.byte	0x1
+ 247 002e 08       		.byte	0x8
+ 248 002f B8030000 		.4byte	.LASF1
+ 249 0033 02       		.uleb128 0x2
+ 250 0034 02       		.byte	0x2
+ 251 0035 05       		.byte	0x5
+ 252 0036 7A000000 		.4byte	.LASF2
+ 253 003a 02       		.uleb128 0x2
+ 254 003b 02       		.byte	0x2
+ 255 003c 07       		.byte	0x7
+ 256 003d FB040000 		.4byte	.LASF3
+ 257 0041 02       		.uleb128 0x2
+ 258 0042 04       		.byte	0x4
+ 259 0043 05       		.byte	0x5
+ 260 0044 80020000 		.4byte	.LASF4
+ 261 0048 02       		.uleb128 0x2
+ 262 0049 04       		.byte	0x4
+ 263 004a 07       		.byte	0x7
+ 264 004b 94040000 		.4byte	.LASF5
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 9
+
+
+ 265 004f 02       		.uleb128 0x2
+ 266 0050 08       		.byte	0x8
+ 267 0051 05       		.byte	0x5
+ 268 0052 5B020000 		.4byte	.LASF6
+ 269 0056 02       		.uleb128 0x2
+ 270 0057 08       		.byte	0x8
+ 271 0058 07       		.byte	0x7
+ 272 0059 69020000 		.4byte	.LASF7
+ 273 005d 03       		.uleb128 0x3
+ 274 005e 04       		.byte	0x4
+ 275 005f 05       		.byte	0x5
+ 276 0060 696E7400 		.ascii	"int\000"
+ 277 0064 02       		.uleb128 0x2
+ 278 0065 04       		.byte	0x4
+ 279 0066 07       		.byte	0x7
+ 280 0067 6C040000 		.4byte	.LASF8
+ 281 006b 04       		.uleb128 0x4
+ 282 006c 80030000 		.4byte	.LASF9
+ 283 0070 02       		.byte	0x2
+ 284 0071 A1       		.byte	0xa1
+ 285 0072 2C000000 		.4byte	0x2c
+ 286 0076 04       		.uleb128 0x4
+ 287 0077 31010000 		.4byte	.LASF10
+ 288 007b 02       		.byte	0x2
+ 289 007c A2       		.byte	0xa2
+ 290 007d 3A000000 		.4byte	0x3a
+ 291 0081 02       		.uleb128 0x2
+ 292 0082 04       		.byte	0x4
+ 293 0083 04       		.byte	0x4
+ 294 0084 24000000 		.4byte	.LASF11
+ 295 0088 02       		.uleb128 0x2
+ 296 0089 08       		.byte	0x8
+ 297 008a 04       		.byte	0x4
+ 298 008b 5D060000 		.4byte	.LASF12
+ 299 008f 02       		.uleb128 0x2
+ 300 0090 01       		.byte	0x1
+ 301 0091 08       		.byte	0x8
+ 302 0092 9F050000 		.4byte	.LASF13
+ 303 0096 02       		.uleb128 0x2
+ 304 0097 04       		.byte	0x4
+ 305 0098 07       		.byte	0x7
+ 306 0099 BC000000 		.4byte	.LASF14
+ 307 009d 05       		.uleb128 0x5
+ 308 009e 01       		.byte	0x1
+ 309 009f 03       		.byte	0x3
+ 310 00a0 58       		.byte	0x58
+ 311 00a1 0D020000 		.4byte	0x20d
+ 312 00a5 06       		.uleb128 0x6
+ 313 00a6 B7010000 		.4byte	.LASF15
+ 314 00aa 00       		.sleb128 0
+ 315 00ab 06       		.uleb128 0x6
+ 316 00ac 00010000 		.4byte	.LASF16
+ 317 00b0 01       		.sleb128 1
+ 318 00b1 06       		.uleb128 0x6
+ 319 00b2 A8070000 		.4byte	.LASF17
+ 320 00b6 02       		.sleb128 2
+ 321 00b7 06       		.uleb128 0x6
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 10
+
+
+ 322 00b8 9F060000 		.4byte	.LASF18
+ 323 00bc 03       		.sleb128 3
+ 324 00bd 06       		.uleb128 0x6
+ 325 00be CA000000 		.4byte	.LASF19
+ 326 00c2 04       		.sleb128 4
+ 327 00c3 06       		.uleb128 0x6
+ 328 00c4 12030000 		.4byte	.LASF20
+ 329 00c8 05       		.sleb128 5
+ 330 00c9 06       		.uleb128 0x6
+ 331 00ca FD060000 		.4byte	.LASF21
+ 332 00ce 20       		.sleb128 32
+ 333 00cf 06       		.uleb128 0x6
+ 334 00d0 A6040000 		.4byte	.LASF22
+ 335 00d4 21       		.sleb128 33
+ 336 00d5 06       		.uleb128 0x6
+ 337 00d6 00000000 		.4byte	.LASF23
+ 338 00da 22       		.sleb128 34
+ 339 00db 06       		.uleb128 0x6
+ 340 00dc 2E030000 		.4byte	.LASF24
+ 341 00e0 23       		.sleb128 35
+ 342 00e1 06       		.uleb128 0x6
+ 343 00e2 50040000 		.4byte	.LASF25
+ 344 00e6 24       		.sleb128 36
+ 345 00e7 06       		.uleb128 0x6
+ 346 00e8 84000000 		.4byte	.LASF26
+ 347 00ec 25       		.sleb128 37
+ 348 00ed 06       		.uleb128 0x6
+ 349 00ee C9020000 		.4byte	.LASF27
+ 350 00f2 26       		.sleb128 38
+ 351 00f3 06       		.uleb128 0x6
+ 352 00f4 AA020000 		.4byte	.LASF28
+ 353 00f8 27       		.sleb128 39
+ 354 00f9 06       		.uleb128 0x6
+ 355 00fa D9070000 		.4byte	.LASF29
+ 356 00fe 28       		.sleb128 40
+ 357 00ff 06       		.uleb128 0x6
+ 358 0100 DE040000 		.4byte	.LASF30
+ 359 0104 29       		.sleb128 41
+ 360 0105 06       		.uleb128 0x6
+ 361 0106 76050000 		.4byte	.LASF31
+ 362 010a 2A       		.sleb128 42
+ 363 010b 06       		.uleb128 0x6
+ 364 010c FD050000 		.4byte	.LASF32
+ 365 0110 2B       		.sleb128 43
+ 366 0111 06       		.uleb128 0x6
+ 367 0112 53010000 		.4byte	.LASF33
+ 368 0116 2C       		.sleb128 44
+ 369 0117 06       		.uleb128 0x6
+ 370 0118 3F000000 		.4byte	.LASF34
+ 371 011c C000     		.sleb128 64
+ 372 011e 06       		.uleb128 0x6
+ 373 011f 79040000 		.4byte	.LASF35
+ 374 0123 C100     		.sleb128 65
+ 375 0125 06       		.uleb128 0x6
+ 376 0126 9E000000 		.4byte	.LASF36
+ 377 012a C200     		.sleb128 66
+ 378 012c 06       		.uleb128 0x6
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 11
+
+
+ 379 012d 13010000 		.4byte	.LASF37
+ 380 0131 C300     		.sleb128 67
+ 381 0133 06       		.uleb128 0x6
+ 382 0134 66070000 		.4byte	.LASF38
+ 383 0138 C400     		.sleb128 68
+ 384 013a 06       		.uleb128 0x6
+ 385 013b 21070000 		.4byte	.LASF39
+ 386 013f C500     		.sleb128 69
+ 387 0141 06       		.uleb128 0x6
+ 388 0142 DF000000 		.4byte	.LASF40
+ 389 0146 C600     		.sleb128 70
+ 390 0148 06       		.uleb128 0x6
+ 391 0149 E5030000 		.4byte	.LASF41
+ 392 014d C700     		.sleb128 71
+ 393 014f 06       		.uleb128 0x6
+ 394 0150 29040000 		.4byte	.LASF42
+ 395 0154 C800     		.sleb128 72
+ 396 0156 06       		.uleb128 0x6
+ 397 0157 28020000 		.4byte	.LASF43
+ 398 015b C900     		.sleb128 73
+ 399 015d 06       		.uleb128 0x6
+ 400 015e C0050000 		.4byte	.LASF44
+ 401 0162 CA00     		.sleb128 74
+ 402 0164 06       		.uleb128 0x6
+ 403 0165 77010000 		.4byte	.LASF45
+ 404 0169 CB00     		.sleb128 75
+ 405 016b 06       		.uleb128 0x6
+ 406 016c 0F040000 		.4byte	.LASF46
+ 407 0170 CC00     		.sleb128 76
+ 408 0172 06       		.uleb128 0x6
+ 409 0173 41020000 		.4byte	.LASF47
+ 410 0177 CD00     		.sleb128 77
+ 411 0179 06       		.uleb128 0x6
+ 412 017a 48070000 		.4byte	.LASF48
+ 413 017e CE00     		.sleb128 78
+ 414 0180 06       		.uleb128 0x6
+ 415 0181 C6030000 		.4byte	.LASF49
+ 416 0185 CF00     		.sleb128 79
+ 417 0187 06       		.uleb128 0x6
+ 418 0188 BA070000 		.4byte	.LASF50
+ 419 018c D000     		.sleb128 80
+ 420 018e 06       		.uleb128 0x6
+ 421 018f DE050000 		.4byte	.LASF51
+ 422 0193 D100     		.sleb128 81
+ 423 0195 06       		.uleb128 0x6
+ 424 0196 F1020000 		.4byte	.LASF52
+ 425 019a D200     		.sleb128 82
+ 426 019c 06       		.uleb128 0x6
+ 427 019d 89020000 		.4byte	.LASF53
+ 428 01a1 D300     		.sleb128 83
+ 429 01a3 06       		.uleb128 0x6
+ 430 01a4 96010000 		.4byte	.LASF54
+ 431 01a8 D400     		.sleb128 84
+ 432 01aa 06       		.uleb128 0x6
+ 433 01ab FB070000 		.4byte	.LASF55
+ 434 01af D500     		.sleb128 85
+ 435 01b1 06       		.uleb128 0x6
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 12
+
+
+ 436 01b2 92030000 		.4byte	.LASF56
+ 437 01b6 F000     		.sleb128 112
+ 438 01b8 06       		.uleb128 0x6
+ 439 01b9 D7060000 		.4byte	.LASF57
+ 440 01bd F100     		.sleb128 113
+ 441 01bf 06       		.uleb128 0x6
+ 442 01c0 A4050000 		.4byte	.LASF58
+ 443 01c4 F200     		.sleb128 114
+ 444 01c6 06       		.uleb128 0x6
+ 445 01c7 CE010000 		.4byte	.LASF59
+ 446 01cb F300     		.sleb128 115
+ 447 01cd 06       		.uleb128 0x6
+ 448 01ce 54030000 		.4byte	.LASF60
+ 449 01d2 F400     		.sleb128 116
+ 450 01d4 06       		.uleb128 0x6
+ 451 01d5 BD040000 		.4byte	.LASF61
+ 452 01d9 F500     		.sleb128 117
+ 453 01db 06       		.uleb128 0x6
+ 454 01dc EC010000 		.4byte	.LASF62
+ 455 01e0 F600     		.sleb128 118
+ 456 01e2 06       		.uleb128 0x6
+ 457 01e3 B8060000 		.4byte	.LASF63
+ 458 01e7 F700     		.sleb128 119
+ 459 01e9 06       		.uleb128 0x6
+ 460 01ea 3A060000 		.4byte	.LASF64
+ 461 01ee F800     		.sleb128 120
+ 462 01f0 06       		.uleb128 0x6
+ 463 01f1 64060000 		.4byte	.LASF65
+ 464 01f5 F900     		.sleb128 121
+ 465 01f7 06       		.uleb128 0x6
+ 466 01f8 84070000 		.4byte	.LASF66
+ 467 01fc FA00     		.sleb128 122
+ 468 01fe 06       		.uleb128 0x6
+ 469 01ff 1C060000 		.4byte	.LASF67
+ 470 0203 FA01     		.sleb128 250
+ 471 0205 06       		.uleb128 0x6
+ 472 0206 72030000 		.4byte	.LASF68
+ 473 020a FF01     		.sleb128 255
+ 474 020c 00       		.byte	0
+ 475 020d 07       		.uleb128 0x7
+ 476 020e C5000000 		.4byte	.LASF69
+ 477 0212 01       		.byte	0x1
+ 478 0213 36       		.byte	0x36
+ 479 0214 5D000000 		.4byte	0x5d
+ 480 0218 00000000 		.4byte	.LFB35
+ 481 021c 68000000 		.4byte	.LFE35-.LFB35
+ 482 0220 01       		.uleb128 0x1
+ 483 0221 9C       		.byte	0x9c
+ 484 0222 08       		.uleb128 0x8
+ 485 0223 59000000 		.4byte	.LASF70
+ 486 0227 01       		.byte	0x1
+ 487 0228 79       		.byte	0x79
+ 488 0229 00000000 		.4byte	.LFB36
+ 489 022d 28000000 		.4byte	.LFE36-.LFB36
+ 490 0231 01       		.uleb128 0x1
+ 491 0232 9C       		.byte	0x9c
+ 492 0233 09       		.uleb128 0x9
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 13
+
+
+ 493 0234 87060000 		.4byte	.LASF80
+ 494 0238 01       		.byte	0x1
+ 495 0239 9D       		.byte	0x9d
+ 496 023a 00000000 		.4byte	.LFB37
+ 497 023e 58000000 		.4byte	.LFE37-.LFB37
+ 498 0242 01       		.uleb128 0x1
+ 499 0243 9C       		.byte	0x9c
+ 500 0244 68020000 		.4byte	0x268
+ 501 0248 0A       		.uleb128 0xa
+ 502 0249 86030000 		.4byte	.LASF71
+ 503 024d 01       		.byte	0x1
+ 504 024e A1       		.byte	0xa1
+ 505 024f 76000000 		.4byte	0x76
+ 506 0253 05       		.uleb128 0x5
+ 507 0254 03       		.byte	0x3
+ 508 0255 02000000 		.4byte	proxCounter.6602
+ 509 0259 0A       		.uleb128 0xa
+ 510 025a 67050000 		.4byte	.LASF72
+ 511 025e 01       		.byte	0x1
+ 512 025f A4       		.byte	0xa4
+ 513 0260 6B000000 		.4byte	0x6b
+ 514 0264 02       		.uleb128 0x2
+ 515 0265 91       		.byte	0x91
+ 516 0266 6F       		.sleb128 -17
+ 517 0267 00       		.byte	0
+ 518 0268 0B       		.uleb128 0xb
+ 519 0269 6A000000 		.4byte	.LASF73
+ 520 026d 01       		.byte	0x1
+ 521 026e 17       		.byte	0x17
+ 522 026f 6B000000 		.4byte	0x6b
+ 523 0273 0B       		.uleb128 0xb
+ 524 0274 41010000 		.4byte	.LASF74
+ 525 0278 01       		.byte	0x1
+ 526 0279 1C       		.byte	0x1c
+ 527 027a 6B000000 		.4byte	0x6b
+ 528 027e 0B       		.uleb128 0xb
+ 529 027f 2A000000 		.4byte	.LASF75
+ 530 0283 01       		.byte	0x1
+ 531 0284 1F       		.byte	0x1f
+ 532 0285 6B000000 		.4byte	0x6b
+ 533 0289 0C       		.uleb128 0xc
+ 534 028a 0D020000 		.4byte	.LASF76
+ 535 028e 01       		.byte	0x1
+ 536 028f 25       		.byte	0x25
+ 537 0290 6B000000 		.4byte	0x6b
+ 538 0294 05       		.uleb128 0x5
+ 539 0295 03       		.byte	0x3
+ 540 0296 00000000 		.4byte	initializeCapSenseBaseline
+ 541 029a 00       		.byte	0
+ 542              		.section	.debug_abbrev,"",%progbits
+ 543              	.Ldebug_abbrev0:
+ 544 0000 01       		.uleb128 0x1
+ 545 0001 11       		.uleb128 0x11
+ 546 0002 01       		.byte	0x1
+ 547 0003 25       		.uleb128 0x25
+ 548 0004 0E       		.uleb128 0xe
+ 549 0005 13       		.uleb128 0x13
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 14
+
+
+ 550 0006 0B       		.uleb128 0xb
+ 551 0007 03       		.uleb128 0x3
+ 552 0008 0E       		.uleb128 0xe
+ 553 0009 1B       		.uleb128 0x1b
+ 554 000a 0E       		.uleb128 0xe
+ 555 000b 55       		.uleb128 0x55
+ 556 000c 17       		.uleb128 0x17
+ 557 000d 11       		.uleb128 0x11
+ 558 000e 01       		.uleb128 0x1
+ 559 000f 10       		.uleb128 0x10
+ 560 0010 17       		.uleb128 0x17
+ 561 0011 00       		.byte	0
+ 562 0012 00       		.byte	0
+ 563 0013 02       		.uleb128 0x2
+ 564 0014 24       		.uleb128 0x24
+ 565 0015 00       		.byte	0
+ 566 0016 0B       		.uleb128 0xb
+ 567 0017 0B       		.uleb128 0xb
+ 568 0018 3E       		.uleb128 0x3e
+ 569 0019 0B       		.uleb128 0xb
+ 570 001a 03       		.uleb128 0x3
+ 571 001b 0E       		.uleb128 0xe
+ 572 001c 00       		.byte	0
+ 573 001d 00       		.byte	0
+ 574 001e 03       		.uleb128 0x3
+ 575 001f 24       		.uleb128 0x24
+ 576 0020 00       		.byte	0
+ 577 0021 0B       		.uleb128 0xb
+ 578 0022 0B       		.uleb128 0xb
+ 579 0023 3E       		.uleb128 0x3e
+ 580 0024 0B       		.uleb128 0xb
+ 581 0025 03       		.uleb128 0x3
+ 582 0026 08       		.uleb128 0x8
+ 583 0027 00       		.byte	0
+ 584 0028 00       		.byte	0
+ 585 0029 04       		.uleb128 0x4
+ 586 002a 16       		.uleb128 0x16
+ 587 002b 00       		.byte	0
+ 588 002c 03       		.uleb128 0x3
+ 589 002d 0E       		.uleb128 0xe
+ 590 002e 3A       		.uleb128 0x3a
+ 591 002f 0B       		.uleb128 0xb
+ 592 0030 3B       		.uleb128 0x3b
+ 593 0031 0B       		.uleb128 0xb
+ 594 0032 49       		.uleb128 0x49
+ 595 0033 13       		.uleb128 0x13
+ 596 0034 00       		.byte	0
+ 597 0035 00       		.byte	0
+ 598 0036 05       		.uleb128 0x5
+ 599 0037 04       		.uleb128 0x4
+ 600 0038 01       		.byte	0x1
+ 601 0039 0B       		.uleb128 0xb
+ 602 003a 0B       		.uleb128 0xb
+ 603 003b 3A       		.uleb128 0x3a
+ 604 003c 0B       		.uleb128 0xb
+ 605 003d 3B       		.uleb128 0x3b
+ 606 003e 0B       		.uleb128 0xb
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 15
+
+
+ 607 003f 01       		.uleb128 0x1
+ 608 0040 13       		.uleb128 0x13
+ 609 0041 00       		.byte	0
+ 610 0042 00       		.byte	0
+ 611 0043 06       		.uleb128 0x6
+ 612 0044 28       		.uleb128 0x28
+ 613 0045 00       		.byte	0
+ 614 0046 03       		.uleb128 0x3
+ 615 0047 0E       		.uleb128 0xe
+ 616 0048 1C       		.uleb128 0x1c
+ 617 0049 0D       		.uleb128 0xd
+ 618 004a 00       		.byte	0
+ 619 004b 00       		.byte	0
+ 620 004c 07       		.uleb128 0x7
+ 621 004d 2E       		.uleb128 0x2e
+ 622 004e 00       		.byte	0
+ 623 004f 3F       		.uleb128 0x3f
+ 624 0050 19       		.uleb128 0x19
+ 625 0051 03       		.uleb128 0x3
+ 626 0052 0E       		.uleb128 0xe
+ 627 0053 3A       		.uleb128 0x3a
+ 628 0054 0B       		.uleb128 0xb
+ 629 0055 3B       		.uleb128 0x3b
+ 630 0056 0B       		.uleb128 0xb
+ 631 0057 49       		.uleb128 0x49
+ 632 0058 13       		.uleb128 0x13
+ 633 0059 11       		.uleb128 0x11
+ 634 005a 01       		.uleb128 0x1
+ 635 005b 12       		.uleb128 0x12
+ 636 005c 06       		.uleb128 0x6
+ 637 005d 40       		.uleb128 0x40
+ 638 005e 18       		.uleb128 0x18
+ 639 005f 9642     		.uleb128 0x2116
+ 640 0061 19       		.uleb128 0x19
+ 641 0062 00       		.byte	0
+ 642 0063 00       		.byte	0
+ 643 0064 08       		.uleb128 0x8
+ 644 0065 2E       		.uleb128 0x2e
+ 645 0066 00       		.byte	0
+ 646 0067 3F       		.uleb128 0x3f
+ 647 0068 19       		.uleb128 0x19
+ 648 0069 03       		.uleb128 0x3
+ 649 006a 0E       		.uleb128 0xe
+ 650 006b 3A       		.uleb128 0x3a
+ 651 006c 0B       		.uleb128 0xb
+ 652 006d 3B       		.uleb128 0x3b
+ 653 006e 0B       		.uleb128 0xb
+ 654 006f 27       		.uleb128 0x27
+ 655 0070 19       		.uleb128 0x19
+ 656 0071 11       		.uleb128 0x11
+ 657 0072 01       		.uleb128 0x1
+ 658 0073 12       		.uleb128 0x12
+ 659 0074 06       		.uleb128 0x6
+ 660 0075 40       		.uleb128 0x40
+ 661 0076 18       		.uleb128 0x18
+ 662 0077 9642     		.uleb128 0x2116
+ 663 0079 19       		.uleb128 0x19
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 16
+
+
+ 664 007a 00       		.byte	0
+ 665 007b 00       		.byte	0
+ 666 007c 09       		.uleb128 0x9
+ 667 007d 2E       		.uleb128 0x2e
+ 668 007e 01       		.byte	0x1
+ 669 007f 3F       		.uleb128 0x3f
+ 670 0080 19       		.uleb128 0x19
+ 671 0081 03       		.uleb128 0x3
+ 672 0082 0E       		.uleb128 0xe
+ 673 0083 3A       		.uleb128 0x3a
+ 674 0084 0B       		.uleb128 0xb
+ 675 0085 3B       		.uleb128 0x3b
+ 676 0086 0B       		.uleb128 0xb
+ 677 0087 27       		.uleb128 0x27
+ 678 0088 19       		.uleb128 0x19
+ 679 0089 11       		.uleb128 0x11
+ 680 008a 01       		.uleb128 0x1
+ 681 008b 12       		.uleb128 0x12
+ 682 008c 06       		.uleb128 0x6
+ 683 008d 40       		.uleb128 0x40
+ 684 008e 18       		.uleb128 0x18
+ 685 008f 9642     		.uleb128 0x2116
+ 686 0091 19       		.uleb128 0x19
+ 687 0092 01       		.uleb128 0x1
+ 688 0093 13       		.uleb128 0x13
+ 689 0094 00       		.byte	0
+ 690 0095 00       		.byte	0
+ 691 0096 0A       		.uleb128 0xa
+ 692 0097 34       		.uleb128 0x34
+ 693 0098 00       		.byte	0
+ 694 0099 03       		.uleb128 0x3
+ 695 009a 0E       		.uleb128 0xe
+ 696 009b 3A       		.uleb128 0x3a
+ 697 009c 0B       		.uleb128 0xb
+ 698 009d 3B       		.uleb128 0x3b
+ 699 009e 0B       		.uleb128 0xb
+ 700 009f 49       		.uleb128 0x49
+ 701 00a0 13       		.uleb128 0x13
+ 702 00a1 02       		.uleb128 0x2
+ 703 00a2 18       		.uleb128 0x18
+ 704 00a3 00       		.byte	0
+ 705 00a4 00       		.byte	0
+ 706 00a5 0B       		.uleb128 0xb
+ 707 00a6 34       		.uleb128 0x34
+ 708 00a7 00       		.byte	0
+ 709 00a8 03       		.uleb128 0x3
+ 710 00a9 0E       		.uleb128 0xe
+ 711 00aa 3A       		.uleb128 0x3a
+ 712 00ab 0B       		.uleb128 0xb
+ 713 00ac 3B       		.uleb128 0x3b
+ 714 00ad 0B       		.uleb128 0xb
+ 715 00ae 49       		.uleb128 0x49
+ 716 00af 13       		.uleb128 0x13
+ 717 00b0 3F       		.uleb128 0x3f
+ 718 00b1 19       		.uleb128 0x19
+ 719 00b2 3C       		.uleb128 0x3c
+ 720 00b3 19       		.uleb128 0x19
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 17
+
+
+ 721 00b4 00       		.byte	0
+ 722 00b5 00       		.byte	0
+ 723 00b6 0C       		.uleb128 0xc
+ 724 00b7 34       		.uleb128 0x34
+ 725 00b8 00       		.byte	0
+ 726 00b9 03       		.uleb128 0x3
+ 727 00ba 0E       		.uleb128 0xe
+ 728 00bb 3A       		.uleb128 0x3a
+ 729 00bc 0B       		.uleb128 0xb
+ 730 00bd 3B       		.uleb128 0x3b
+ 731 00be 0B       		.uleb128 0xb
+ 732 00bf 49       		.uleb128 0x49
+ 733 00c0 13       		.uleb128 0x13
+ 734 00c1 3F       		.uleb128 0x3f
+ 735 00c2 19       		.uleb128 0x19
+ 736 00c3 02       		.uleb128 0x2
+ 737 00c4 18       		.uleb128 0x18
+ 738 00c5 00       		.byte	0
+ 739 00c6 00       		.byte	0
+ 740 00c7 00       		.byte	0
+ 741              		.section	.debug_aranges,"",%progbits
+ 742 0000 2C000000 		.4byte	0x2c
+ 743 0004 0200     		.2byte	0x2
+ 744 0006 00000000 		.4byte	.Ldebug_info0
+ 745 000a 04       		.byte	0x4
+ 746 000b 00       		.byte	0
+ 747 000c 0000     		.2byte	0
+ 748 000e 0000     		.2byte	0
+ 749 0010 00000000 		.4byte	.LFB35
+ 750 0014 68000000 		.4byte	.LFE35-.LFB35
+ 751 0018 00000000 		.4byte	.LFB36
+ 752 001c 28000000 		.4byte	.LFE36-.LFB36
+ 753 0020 00000000 		.4byte	.LFB37
+ 754 0024 58000000 		.4byte	.LFE37-.LFB37
+ 755 0028 00000000 		.4byte	0
+ 756 002c 00000000 		.4byte	0
+ 757              		.section	.debug_ranges,"",%progbits
+ 758              	.Ldebug_ranges0:
+ 759 0000 00000000 		.4byte	.LFB35
+ 760 0004 68000000 		.4byte	.LFE35
+ 761 0008 00000000 		.4byte	.LFB36
+ 762 000c 28000000 		.4byte	.LFE36
+ 763 0010 00000000 		.4byte	.LFB37
+ 764 0014 58000000 		.4byte	.LFE37
+ 765 0018 00000000 		.4byte	0
+ 766 001c 00000000 		.4byte	0
+ 767              		.section	.debug_line,"",%progbits
+ 768              	.Ldebug_line0:
+ 769 0000 AE000000 		.section	.debug_str,"MS",%progbits,1
+ 769      02005400 
+ 769      00000201 
+ 769      FB0E0D00 
+ 769      01010101 
+ 770              	.LASF23:
+ 771 0000 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_ENTRY_REQUEST\000"
+ 771      455F4556 
+ 771      545F4741 
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 18
+
+
+ 771      505F5041 
+ 771      53534B45 
+ 772              	.LASF11:
+ 773 0024 666C6F61 		.ascii	"float\000"
+ 773      7400
+ 774              	.LASF75:
+ 775 002a 72657374 		.ascii	"restartAdvertisement\000"
+ 775      61727441 
+ 775      64766572 
+ 775      74697365 
+ 775      6D656E74 
+ 776              	.LASF34:
+ 777 003f 4359424C 		.ascii	"CYBLE_EVT_GATTC_ERROR_RSP\000"
+ 777      455F4556 
+ 777      545F4741 
+ 777      5454435F 
+ 777      4552524F 
+ 778              	.LASF70:
+ 779 0059 496E6974 		.ascii	"InitializeSystem\000"
+ 779      69616C69 
+ 779      7A655379 
+ 779      7374656D 
+ 779      00
+ 780              	.LASF73:
+ 781 006a 64657669 		.ascii	"deviceConnected\000"
+ 781      6365436F 
+ 781      6E6E6563 
+ 781      74656400 
+ 782              	.LASF2:
+ 783 007a 73686F72 		.ascii	"short int\000"
+ 783      7420696E 
+ 783      7400
+ 784              	.LASF26:
+ 785 0084 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_FAILED\000"
+ 785      455F4556 
+ 785      545F4741 
+ 785      505F4155 
+ 785      54485F46 
+ 786              	.LASF36:
+ 787 009e 4359424C 		.ascii	"CYBLE_EVT_GATT_DISCONNECT_IND\000"
+ 787      455F4556 
+ 787      545F4741 
+ 787      54545F44 
+ 787      4953434F 
+ 788              	.LASF14:
+ 789 00bc 73697A65 		.ascii	"sizetype\000"
+ 789      74797065 
+ 789      00
+ 790              	.LASF69:
+ 791 00c5 6D61696E 		.ascii	"main\000"
+ 791      00
+ 792              	.LASF19:
+ 793 00ca 4359424C 		.ascii	"CYBLE_EVT_HCI_STATUS\000"
+ 793      455F4556 
+ 793      545F4843 
+ 793      495F5354 
+ 793      41545553 
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 19
+
+
+ 794              	.LASF40:
+ 795 00df 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_TYPE_RSP\000"
+ 795      455F4556 
+ 795      545F4741 
+ 795      5454435F 
+ 795      52454144 
+ 796              	.LASF16:
+ 797 0100 4359424C 		.ascii	"CYBLE_EVT_STACK_ON\000"
+ 797      455F4556 
+ 797      545F5354 
+ 797      41434B5F 
+ 797      4F4E00
+ 798              	.LASF37:
+ 799 0113 4359424C 		.ascii	"CYBLE_EVT_GATTS_XCNHG_MTU_REQ\000"
+ 799      455F4556 
+ 799      545F4741 
+ 799      5454535F 
+ 799      58434E48 
+ 800              	.LASF10:
+ 801 0131 75696E74 		.ascii	"uint16\000"
+ 801      313600
+ 802              	.LASF78:
+ 803 0138 2E5C6D61 		.ascii	".\\main.c\000"
+ 803      696E2E63 
+ 803      00
+ 804              	.LASF74:
+ 805 0141 73746172 		.ascii	"startNotification\000"
+ 805      744E6F74 
+ 805      69666963 
+ 805      6174696F 
+ 805      6E00
+ 806              	.LASF33:
+ 807 0153 4359424C 		.ascii	"CYBLE_EVT_GAP_KEYINFO_EXCHNGE_CMPLT\000"
+ 807      455F4556 
+ 807      545F4741 
+ 807      505F4B45 
+ 807      59494E46 
+ 808              	.LASF45:
+ 809 0177 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_MULTI_RSP\000"
+ 809      455F4556 
+ 809      545F4741 
+ 809      5454435F 
+ 809      52454144 
+ 810              	.LASF54:
+ 811 0196 4359424C 		.ascii	"CYBLE_EVT_GATTS_HANDLE_VALUE_CNF\000"
+ 811      455F4556 
+ 811      545F4741 
+ 811      5454535F 
+ 811      48414E44 
+ 812              	.LASF15:
+ 813 01b7 4359424C 		.ascii	"CYBLE_EVT_HOST_INVALID\000"
+ 813      455F4556 
+ 813      545F484F 
+ 813      53545F49 
+ 813      4E56414C 
+ 814              	.LASF59:
+ 815 01ce 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_IND\000"
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 20
+
+
+ 815      455F4556 
+ 815      545F4C32 
+ 815      4341505F 
+ 815      43424643 
+ 816              	.LASF62:
+ 817 01ec 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_CNF\000"
+ 817      455F4556 
+ 817      545F4C32 
+ 817      4341505F 
+ 817      43424643 
+ 818              	.LASF76:
+ 819 020d 696E6974 		.ascii	"initializeCapSenseBaseline\000"
+ 819      69616C69 
+ 819      7A654361 
+ 819      7053656E 
+ 819      73654261 
+ 820              	.LASF43:
+ 821 0228 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_RSP\000"
+ 821      455F4556 
+ 821      545F4741 
+ 821      5454435F 
+ 821      52454144 
+ 822              	.LASF47:
+ 823 0241 4359424C 		.ascii	"CYBLE_EVT_GATTC_WRITE_RSP\000"
+ 823      455F4556 
+ 823      545F4741 
+ 823      5454435F 
+ 823      57524954 
+ 824              	.LASF6:
+ 825 025b 6C6F6E67 		.ascii	"long long int\000"
+ 825      206C6F6E 
+ 825      6720696E 
+ 825      7400
+ 826              	.LASF7:
+ 827 0269 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 827      206C6F6E 
+ 827      6720756E 
+ 827      7369676E 
+ 827      65642069 
+ 828              	.LASF4:
+ 829 0280 6C6F6E67 		.ascii	"long int\000"
+ 829      20696E74 
+ 829      00
+ 830              	.LASF53:
+ 831 0289 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_IND\000"
+ 831      455F4556 
+ 831      545F4741 
+ 831      5454435F 
+ 831      48414E44 
+ 832              	.LASF28:
+ 833 02aa 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_CONNECTED\000"
+ 833      455F4556 
+ 833      545F4741 
+ 833      505F4445 
+ 833      56494345 
+ 834              	.LASF27:
+ 835 02c9 4359424C 		.ascii	"CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP\000"
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 21
+
+
+ 835      455F4556 
+ 835      545F4741 
+ 835      50505F41 
+ 835      44564552 
+ 836              	.LASF52:
+ 837 02f1 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_NTF\000"
+ 837      455F4556 
+ 837      545F4741 
+ 837      5454435F 
+ 837      48414E44 
+ 838              	.LASF20:
+ 839 0312 4359424C 		.ascii	"CYBLE_EVT_STACK_BUSY_STATUS\000"
+ 839      455F4556 
+ 839      545F5354 
+ 839      41434B5F 
+ 839      42555359 
+ 840              	.LASF24:
+ 841 032e 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_DISPLAY_REQUEST\000"
+ 841      455F4556 
+ 841      545F4741 
+ 841      505F5041 
+ 841      53534B45 
+ 842              	.LASF60:
+ 843 0354 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_CNF\000"
+ 843      455F4556 
+ 843      545F4C32 
+ 843      4341505F 
+ 843      43424643 
+ 844              	.LASF68:
+ 845 0372 4359424C 		.ascii	"CYBLE_EVT_MAX\000"
+ 845      455F4556 
+ 845      545F4D41 
+ 845      5800
+ 846              	.LASF9:
+ 847 0380 75696E74 		.ascii	"uint8\000"
+ 847      3800
+ 848              	.LASF71:
+ 849 0386 70726F78 		.ascii	"proxCounter\000"
+ 849      436F756E 
+ 849      74657200 
+ 850              	.LASF56:
+ 851 0392 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_REQ\000"
+ 851      455F4556 
+ 851      545F4C32 
+ 851      4341505F 
+ 851      434F4E4E 
+ 852              	.LASF1:
+ 853 03b8 756E7369 		.ascii	"unsigned char\000"
+ 853      676E6564 
+ 853      20636861 
+ 853      7200
+ 854              	.LASF49:
+ 855 03c6 4359424C 		.ascii	"CYBLE_EVT_GATTS_PREP_WRITE_REQ\000"
+ 855      455F4556 
+ 855      545F4741 
+ 855      5454535F 
+ 855      50524550 
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 22
+
+
+ 856              	.LASF41:
+ 857 03e5 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_INFO_RSP\000"
+ 857      455F4556 
+ 857      545F4741 
+ 857      5454435F 
+ 857      46494E44 
+ 858              	.LASF0:
+ 859 0403 7369676E 		.ascii	"signed char\000"
+ 859      65642063 
+ 859      68617200 
+ 860              	.LASF46:
+ 861 040f 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_REQ\000"
+ 861      455F4556 
+ 861      545F4741 
+ 861      5454535F 
+ 861      57524954 
+ 862              	.LASF42:
+ 863 0429 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_BY_TYPE_VALUE_RSP\000"
+ 863      455F4556 
+ 863      545F4741 
+ 863      5454435F 
+ 863      46494E44 
+ 864              	.LASF25:
+ 865 0450 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_COMPLETE\000"
+ 865      455F4556 
+ 865      545F4741 
+ 865      505F4155 
+ 865      54485F43 
+ 866              	.LASF8:
+ 867 046c 756E7369 		.ascii	"unsigned int\000"
+ 867      676E6564 
+ 867      20696E74 
+ 867      00
+ 868              	.LASF35:
+ 869 0479 4359424C 		.ascii	"CYBLE_EVT_GATT_CONNECT_IND\000"
+ 869      455F4556 
+ 869      545F4741 
+ 869      54545F43 
+ 869      4F4E4E45 
+ 870              	.LASF5:
+ 871 0494 6C6F6E67 		.ascii	"long unsigned int\000"
+ 871      20756E73 
+ 871      69676E65 
+ 871      6420696E 
+ 871      7400
+ 872              	.LASF22:
+ 873 04a6 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_REQ\000"
+ 873      455F4556 
+ 873      545F4741 
+ 873      505F4155 
+ 873      54485F52 
+ 874              	.LASF61:
+ 875 04bd 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_IND\000"
+ 875      455F4556 
+ 875      545F4C32 
+ 875      4341505F 
+ 875      43424643 
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 23
+
+
+ 876              	.LASF30:
+ 877 04de 4359424C 		.ascii	"CYBLE_EVT_GAP_ENCRYPT_CHANGE\000"
+ 877      455F4556 
+ 877      545F4741 
+ 877      505F454E 
+ 877      43525950 
+ 878              	.LASF3:
+ 879 04fb 73686F72 		.ascii	"short unsigned int\000"
+ 879      7420756E 
+ 879      7369676E 
+ 879      65642069 
+ 879      6E7400
+ 880              	.LASF79:
+ 881 050e 433A5C55 		.ascii	"C:\\Users\\Manisha Goyal\\Desktop\\PSoC_4_BLE_CapSe"
+ 881      73657273 
+ 881      5C4D616E 
+ 881      69736861 
+ 881      20476F79 
+ 882 053d 6E73655F 		.ascii	"nse_Proximity\\PSOC_CapenseProximity.cydsn\000"
+ 882      50726F78 
+ 882      696D6974 
+ 882      795C5053 
+ 882      4F435F43 
+ 883              	.LASF72:
+ 884 0567 70726F78 		.ascii	"proximityValue\000"
+ 884      696D6974 
+ 884      7956616C 
+ 884      756500
+ 885              	.LASF31:
+ 886 0576 4359424C 		.ascii	"CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE\000"
+ 886      455F4556 
+ 886      545F4741 
+ 886      505F434F 
+ 886      4E4E4543 
+ 887              	.LASF13:
+ 888 059f 63686172 		.ascii	"char\000"
+ 888      00
+ 889              	.LASF58:
+ 890 05a4 4359424C 		.ascii	"CYBLE_EVT_L2CAP_COMMAND_REJ\000"
+ 890      455F4556 
+ 890      545F4C32 
+ 890      4341505F 
+ 890      434F4D4D 
+ 891              	.LASF44:
+ 892 05c0 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BLOB_RSP\000"
+ 892      455F4556 
+ 892      545F4741 
+ 892      5454435F 
+ 892      52454144 
+ 893              	.LASF51:
+ 894 05de 4359424C 		.ascii	"CYBLE_EVT_GATTC_EXEC_WRITE_RSP\000"
+ 894      455F4556 
+ 894      545F4741 
+ 894      5454435F 
+ 894      45584543 
+ 895              	.LASF32:
+ 896 05fd 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_START_STOP\000"
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 24
+
+
+ 896      455F4556 
+ 896      545F4741 
+ 896      50435F53 
+ 896      43414E5F 
+ 897              	.LASF67:
+ 898 061c 4359424C 		.ascii	"CYBLE_EVT_PENDING_FLASH_WRITE\000"
+ 898      455F4556 
+ 898      545F5045 
+ 898      4E44494E 
+ 898      475F464C 
+ 899              	.LASF64:
+ 900 063a 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_RX_CREDIT_IND\000"
+ 900      455F4556 
+ 900      545F4C32 
+ 900      4341505F 
+ 900      43424643 
+ 901              	.LASF12:
+ 902 065d 646F7562 		.ascii	"double\000"
+ 902      6C6500
+ 903              	.LASF65:
+ 904 0664 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_TX_CREDIT_IND\000"
+ 904      455F4556 
+ 904      545F4C32 
+ 904      4341505F 
+ 904      43424643 
+ 905              	.LASF80:
+ 906 0687 48616E64 		.ascii	"HandleCapSenseProximity\000"
+ 906      6C654361 
+ 906      7053656E 
+ 906      73655072 
+ 906      6F78696D 
+ 907              	.LASF18:
+ 908 069f 4359424C 		.ascii	"CYBLE_EVT_HARDWARE_ERROR\000"
+ 908      455F4556 
+ 908      545F4841 
+ 908      52445741 
+ 908      52455F45 
+ 909              	.LASF63:
+ 910 06b8 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_READ\000"
+ 910      455F4556 
+ 910      545F4C32 
+ 910      4341505F 
+ 910      43424643 
+ 911              	.LASF57:
+ 912 06d7 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_RSP\000"
+ 912      455F4556 
+ 912      545F4C32 
+ 912      4341505F 
+ 912      434F4E4E 
+ 913              	.LASF21:
+ 914 06fd 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT\000"
+ 914      455F4556 
+ 914      545F4741 
+ 914      50435F53 
+ 914      43414E5F 
+ 915              	.LASF39:
+ 916 0721 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_GROUP_TYPE_RSP\000"
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 25
+
+
+ 916      455F4556 
+ 916      545F4741 
+ 916      5454435F 
+ 916      52454144 
+ 917              	.LASF48:
+ 918 0748 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_CMD_REQ\000"
+ 918      455F4556 
+ 918      545F4741 
+ 918      5454535F 
+ 918      57524954 
+ 919              	.LASF38:
+ 920 0766 4359424C 		.ascii	"CYBLE_EVT_GATTC_XCHNG_MTU_RSP\000"
+ 920      455F4556 
+ 920      545F4741 
+ 920      5454435F 
+ 920      5843484E 
+ 921              	.LASF66:
+ 922 0784 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_WRITE_IND\000"
+ 922      455F4556 
+ 922      545F4C32 
+ 922      4341505F 
+ 922      43424643 
+ 923              	.LASF17:
+ 924 07a8 4359424C 		.ascii	"CYBLE_EVT_TIMEOUT\000"
+ 924      455F4556 
+ 924      545F5449 
+ 924      4D454F55 
+ 924      5400
+ 925              	.LASF50:
+ 926 07ba 4359424C 		.ascii	"CYBLE_EVT_GATTS_EXEC_WRITE_REQ\000"
+ 926      455F4556 
+ 926      545F4741 
+ 926      5454535F 
+ 926      45584543 
+ 927              	.LASF29:
+ 928 07d9 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_DISCONNECTED\000"
+ 928      455F4556 
+ 928      545F4741 
+ 928      505F4445 
+ 928      56494345 
+ 929              	.LASF55:
+ 930 07fb 4359424C 		.ascii	"CYBLE_EVT_GATTS_DATA_SIGNED_CMD_REQ\000"
+ 930      455F4556 
+ 930      545F4741 
+ 930      5454535F 
+ 930      44415441 
+ 931              	.LASF77:
+ 932 081f 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 932      4320342E 
+ 932      382E3420 
+ 932      32303134 
+ 932      30353236 
+ 933 0852 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 933      20726576 
+ 933      6973696F 
+ 933      6E203231 
+ 933      31333538 
+ARM GAS  C:\Users\MANISH~1\AppData\Local\Temp\ccYYKIMg.s 			page 26
+
+
+ 934 0885 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 934      66756E63 
+ 934      74696F6E 
+ 934      2D736563 
+ 934      74696F6E 
+ 935              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br
